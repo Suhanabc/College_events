@@ -1,2 +1,6 @@
 *.py linguist-detectable=true
 *.js linguist-detectable=false
+*.py linguist-language=Python
+*.css linguist-vendored=true
+*.js linguist-vendored=true
+/static/** linguist-vendored=true
