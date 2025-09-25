@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ request.user.username }}'s Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f8fc;
+            color: #333;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            background: white;
+        }
+        h1 {
+            color: #2a4d8f;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #1a3d6d;
+            margin-top: 30px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            padding: 8px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: #2a4d8f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        a:hover {
+            background: #1a3d6d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ request.user.username }}</h1>
+
+    <h2>Registered Events</h2>
+
+    {% if registrations %}
+        <ul>
+            {% for reg in registrations %}
+                <li>{{ reg.event.title }} - {{ reg.event.date }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have not registered for any events yet.</p>
+    {% endif %}
+
+    <a href="{% url 'event_list' %}">Back to Event List</a>
+
+    <h2>{{ user.username }}'s Profile</h2>
+<p>Email: {{ user.email }}</p>
+
+<h3>Registered Events:</h3>
+<ul>
+    {% for event in user.events.all %}
+        <li>{{ event.title }}</li>
+    {% empty %}
+        <li>No registered events</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
+

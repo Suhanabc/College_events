@@ -1,0 +1,271 @@
+<!-- <h2>Login</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Login</button> 
+</form>
+ <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    ...
+</form>
+
+<title>Login</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #FAA18F, #FF7F50);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    .theme-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: white;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        color: #FF7F50;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        transition: 0.3s;
+    }
+
+    .theme-toggle:hover {
+        transform: scale(1.05);
+    }
+
+    .login-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px 50px;
+        border-radius: 15px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+        text-align: center;
+        width: 360px;
+        animation: fadeIn 0.8s ease-in-out;
+        transition: background0.5s ease, color 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-container h2 {
+        margin-bottom: 25px;
+        color: #222;
+        font-weight: bold;
+    }
+
+    .input-group {
+        margin-bottom: 18px;
+        text-align: left;
+    }
+
+    .login-container input[type="text"],
+    .login-container input[type="password"],
+    .login-container select {
+        width: 100%;
+        padding: 12px 15px;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+        transition: all 0.3s ease;
+        background: #fff;
+    }
+
+    .login-container input:focus,
+    .login-container select:focus {
+        border-color: #FF7F50;
+        box-shadow: 0px 0px 6px rgba(250, 161, 143, 0.6);
+    }
+
+    .password-wrapper {
+        position: relative;
+    }
+
+    .toggle-pass {
+        position: absolute;
+        right: 12px;
+        top: 38%;
+        cursor: pointer;
+        font-size: 13px;
+        color: #FF7F50;
+    }
+
+    .checkbox-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        margin-bottom: 18px;
+    }
+
+    .checkbox-group a {
+        color: #FF7F50;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .checkbox-group a:hover {
+        text-decoration: underline;
+    }
+
+    .login-container button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #FF7F50, #FAA18F);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-container button:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .login-container p {
+        margin-top: 20px;
+        font-size: 14px;
+    }
+
+    .login-container a {
+        color: #FF7F50;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .login-container a:hover {
+        text-decoration: underline;
+    }
+
+    /* Dark Mode Styles */
+    body.dark {
+        background: linear-gradient(135deg, #1a1a1a, #333);
+        color: #eee;
+    }
+
+    body.dark .login-container {
+        background: rgba(30, 30, 30, 0.95);
+        color: #eee;
+    }
+
+    body.dark .login-container h2 {
+        color: #fff;
+    }
+
+    body.dark input,
+    body.dark select {
+        background: #444;
+        color: #eee;
+        border: 1px solid #666;
+    }
+
+    body.dark input::placeholder {
+        color: #bbb;
+    }
+
+    body.dark .toggle-pass,
+    body.dark .checkbox-group a,
+    body.dark .login-container a {
+        color: #FFD580;
+    }
+
+    body.dark .login-container button {
+        background: linear-gradient(135deg, #FFD580, #FF8C42);
+    }
+
+    body.dark .theme-toggle {
+        background: #FFD580;
+        color: #333;
+    }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+
+<div class="login-container">
+    <h2>Login</h2>
+   <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" placeholder="Enter username" required>
+    </div>
+
+    <div class="input-group password-wrapper">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <span class="toggle-pass" onclick="togglePassword()">👁</span>
+    </div>
+
+    <!-- <div class="input-group">
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+            <option value="">Select Role</option>
+            <option value="student">Student</option>
+            <option value="organizer">Organizer</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div> -->
+
+    <div class="checkbox-group">
+        <label><input type="checkbox"> Remember Me</label>
+        <a href="#">Forgot Password?</a>
+    </div>
+
+    <button type="submit">Login</button>
+</form>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+</form>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
+    </form>
+    <p>Don't have an account? <a href="/events/signup/">Sign up</a></p>
+</div>
+
+<script>
+    function togglePassword() {
+        let passField = document.getElementById("password");
+        passField.type = passField.type === "password" ? "text" : "password";
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle("dark");
+        let btn = document.querySelector(".theme-toggle");
+        if (document.body.classList.contains("dark")) {
+            btn.textContent = "Light Mode";
+        } else {
+            btn.textContent = "Dark Mode";
+        }
+    }
+</script>
+
+</body>
+</html>

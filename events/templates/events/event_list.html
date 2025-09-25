@@ -1,0 +1,178 @@
+<!-- {% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upcoming Events</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Upcoming Events</h1>
+
+    <div class="top-bar">
+        <a href="{% url 'event_create' %}" class="add-button">+ Add New Event</a>
+    </div>
+
+    {% for event in events %}
+        <div class="event-card">
+            <a href="{% url 'event_detail' event.id %}" class="event-title">{{ event.title }}</a>
+            <a href="{% url 'event_edit' event.id %}" class="edit-link">Edit</a>
+
+             Delete form 
+            <form method="post" action="{% url 'event_delete' event.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="delete-link" onclick="return confirm('Are you sure you want to delete this event?');">Delete</button>
+            </form>
+
+            <div class="event-date">{{ event.date|date:"M. d, Y" }}</div>
+            <div class="event-description">{{ event.description }}</div>
+        </div>
+    {% empty %}
+        <p>No events found.</p>
+    {% endfor %}
+</body>
+</html>   -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upcoming Events</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .top-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .add-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .add-button:hover {
+            background: #0056b3;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .event-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .event-date {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .event-description {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .event-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .event-actions a, .event-actions button {
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .edit-link {
+            background: #ffc107;
+            color: white;
+        }
+
+        .edit-link:hover {
+            background: #e0a800;
+        }
+
+        .delete-link {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-link:hover {
+            background: #c82333;
+        }
+
+        .register-button {
+            background: #28a745;
+            color: white;
+        }
+
+        .register-button:hover {
+            background: #218838;
+        }
+        
+
+    </style>
+</head>
+<body>
+
+    <h1>Upcoming Events</h1> 
+     <!-- Add button   -->
+     <div class="top-bar">
+        <a href="{% url 'event_create' %}" class="add-button">+ Add New Event</a>
+    </div>
+
+    {% for event in events %}
+        <div class="event-card">
+            <a href="{% url 'event_detail' event.id %}" class="event-title">{{ event.title }}</a>
+
+            <div class="event-date">Date: {{ event.date|date:"M. d, Y" }}</div>
+            <div class="event-description">{{ event.description }}</div>
+
+            <div class="event-actions">
+                <a href="{% url 'event_edit' event.id %}" class="edit-link">Edit</a>
+                <a href="{% url 'event_delete' event.id %}" class="delete-link">Delete</a>
+
+                <form method="post" action="{% url 'register_event' event.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="register-button">Register</button>
+                </form>
+            </div>
+        </div>
+    {% empty %}
+        <p style="text-align:center;">No events found.</p>
+    {% endfor %}
+
+</body>
+</html>
+
+
+

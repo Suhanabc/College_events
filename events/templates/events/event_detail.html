@@ -1,0 +1,244 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ event.name }}</title>
+
+</head><style>
+/* Paste your CSS here */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    padding: 20px;
+}
+
+.event-detail-container {
+    background: white;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.event-detail-container h2 {
+    color: #333;
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.event-detail-container p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.event-detail-date {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.event-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.event-actions button,
+.event-actions a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 6px;
+    border: none;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-button {
+    background: #28a745;
+    color: white;
+}
+
+.register-button:hover {
+    background: #218838;
+}
+
+.back-link {
+    background: #6c757d;
+    color: white;
+}
+
+.back-link:hover {
+    background: #5a6268;
+}
+</style>
+
+<body>
+
+    <h1>{{ event.name }}</h1>
+    <p>{{ event.description }}</p>
+    <p>Date: {{ event.date }}</p>
+
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'register_event' event.id %}">
+            {% csrf_token %}
+            <button type="submit">Register</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to register for this event.</p>
+    {% endif %}
+
+    Messages
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p><a href="{% url 'event_list' %}">Back to event list</a></p> 
+    
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ event.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+            padding: 20px;
+        }
+
+        .event-detail-container {
+            background: white;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .event-detail-container h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .event-detail-container p {
+            font-size: 1.1em;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .event-detail-date {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1em;
+            margin-bottom: 25px;
+        }
+
+        .event-actions button,
+        .event-actions a {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 8px;
+            border-radius: 6px;
+            border: none;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .register-button {
+            background: #28a745;
+            color: white;
+        }
+        .register-button:hover {
+            background: #218838;
+        }
+
+        .back-link {
+            background: #6c757d;
+            color: white;
+        }
+        .back-link:hover {
+            background: #5a6268;
+        }
+
+        /* Messages styling */
+        .messages {
+            margin-top: 20px;
+        }
+        .messages li {
+            list-style: none;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .messages li.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        .messages li.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+        .messages li.warning {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 5px solid #ffc107;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="event-detail-container">
+        <h2>{{ event.name }}</h2>
+        <p>{{ event.description }}</p>
+        <p class="event-detail-date">Date: {{ event.date }}</p>
+
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'register_event' event.id %}">
+                {% csrf_token %}
+                <button type="submit" class="register-button">Register</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Log in</a> to register for this event.</p>
+        {% endif %}
+
+        <!-- Messages -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <div class="event-actions">
+            <a href="{% url 'event_list' %}" class="back-link">Back to event list</a>
+        </div>
+    </div>
+</body>
+</html>
+
