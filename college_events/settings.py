@@ -28,6 +28,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["college-events-1-s4dk.onrender.com", "127.0.0.1", "localhost"]
 
 
+
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
