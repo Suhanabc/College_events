@@ -17,8 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.urls import path, include
+from django.views.generic import RedirectView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('events/', include('events.urls')),  # all URLs starting with /events/ go to events app
+
+ path('admin/', admin.site.urls),
+    path('events/', include('events.urls')),
+
+    # Redirect homepage to /events/
+    path('', RedirectView.as_view(url='/events/', permanent=False)),
+
+
+
+
 ]
 
