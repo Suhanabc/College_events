@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
+from django.shortcuts import render
+from django.http import HttpResponse
 
 
 # Check if user is admin
@@ -118,3 +120,14 @@ def user_profile(request):
 @login_required
 def home(request):
     return render(request, 'events/home.html', {'user': request.user})
+
+
+
+#  Home page
+def index(request):
+    return HttpResponse("<h1>Welcome to College Events 🎉</h1><p>This is your homepage.</p>")
+
+
+# Add event page (optional)
+def add_event(request):
+    return HttpResponse("<h1>Add a new event here.</h1>")

@@ -1,8 +1,14 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from django.urls import path
+from . import views
 
 urlpatterns = [
+    path('', views.index, name='index'),
+    path('add/', views.add_event, name='add_event'),
+
+
     path('', views.event_list, name='event_list'),
     path('<int:event_id>/', views.event_detail, name='event_detail'),
     path('create/', views.event_create, name='event_create'),
